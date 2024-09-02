@@ -12,7 +12,7 @@ const UserDashboard = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3000/userData', {
+        const response = await axios.get('https://facemed-api.onrender.com/userData', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -37,7 +37,7 @@ const UserDashboard = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:3000/update', formData, {
+      await axios.post('https://facemed-api.onrender.com/update', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

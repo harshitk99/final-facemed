@@ -39,7 +39,7 @@ const ProfessionalDashboard = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:3000/verify', formData, {
+      const response = await axios.post('https://facemed-api.onrender.com/verify', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
