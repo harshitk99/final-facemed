@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const SignupUser = () => {
   const [formData, setFormData] = useState({
@@ -45,82 +46,127 @@ const SignupUser = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-teal-100 to-teal-200">
-      <form className="bg-white p-8 rounded-lg shadow-lg w-80 max-w-md" onSubmit={handleSubmit}>
-        <h2 className="text-2xl mb-6 text-center text-teal-800 font-bold">Signup as User</h2>
-        <input
+      <motion.form
+        className="bg-white p-8 rounded-lg shadow-lg w-80 max-w-md"
+        onSubmit={handleSubmit}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+      >
+        <motion.h2
+          className="text-2xl mb-6 text-center text-teal-800 font-bold"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
+          Signup as User
+        </motion.h2>
+
+        <motion.input
           type="text"
           name="name"
           placeholder="Name"
           className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
           onChange={handleChange}
           required
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.1, ease: 'easeOut' }}
         />
-        <input
+        <motion.input
           type="text"
           name="aadharNumber"
           placeholder="Aadhaar Number"
           className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
           onChange={handleChange}
           required
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.2, ease: 'easeOut' }}
         />
-        <input
+        <motion.input
           type="password"
           name="password"
           placeholder="Password"
           className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
           onChange={handleChange}
           required
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.3, ease: 'easeOut' }}
         />
-        <input
+        <motion.input
           type="text"
           name="emergencyContact"
           placeholder="Emergency Contact"
           className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
           onChange={handleChange}
           required
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.4, ease: 'easeOut' }}
         />
-        <input
+        <motion.input
           type="text"
           name="bloodGroup"
           placeholder="Blood Group"
           className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
           onChange={handleChange}
           required
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.5, ease: 'easeOut' }}
         />
-        <input
+        <motion.input
           type="text"
           name="allergies"
           placeholder="Allergies"
           className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
           onChange={handleChange}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.6, ease: 'easeOut' }}
         />
-        <input
+        <motion.input
           type="text"
           name="pastSurgery"
           placeholder="Past Surgery"
           className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
           onChange={handleChange}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.7, ease: 'easeOut' }}
         />
-        <input
+        <motion.input
           type="text"
           name="otherMedicalConditions"
           placeholder="Other Medical Conditions"
           className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
           onChange={handleChange}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.8, ease: 'easeOut' }}
         />
-        <input
+        <motion.input
           type="file"
           className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
           onChange={handleFileChange}
           required
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.9, ease: 'easeOut' }}
         />
-        <button
+        <motion.button
           type="submit"
           className="bg-teal-600 text-white w-full py-2 rounded-lg hover:bg-teal-700 transition duration-300"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
         >
           Signup
-        </button>
-      </form>
+        </motion.button>
+      </motion.form>
     </div>
   );
 };

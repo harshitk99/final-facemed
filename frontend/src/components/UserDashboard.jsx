@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const UserDashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -56,7 +57,24 @@ const UserDashboard = () => {
     navigate('/');
   };
 
-  if (!userData) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  if (!userData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-teal-100 to-teal-200">
+        <motion.div
+          className="loader"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, rotate: 360 }}
+          transition={{
+            repeat: Infinity,
+            duration: 1,
+            ease: 'linear',
+          }}
+        >
+          <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent border-solid rounded-full"></div>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-teal-100 to-teal-200">
