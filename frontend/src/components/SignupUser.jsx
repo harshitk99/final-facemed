@@ -17,6 +17,7 @@ const SignupUser = () => {
   });
   const [useCamera, setUseCamera] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
+  const [loading, setLoading] = useState(false); // New state for loading
   const webcamRef = useRef(null);
   const navigate = useNavigate();
 
@@ -52,6 +53,7 @@ const SignupUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when request starts
 
     try {
       const formDataObj = new FormData();
@@ -64,7 +66,9 @@ const SignupUser = () => {
       navigate('/');
     } catch (error) {
       console.error('Error signing up:', error);
-      alert('Signup failed: ' + error.response.data);
+      alert('Signup failed: ' + (error.response?.data || 'Unknown error'));
+    } finally {
+      setLoading(false); // Set loading to false when request completes
     }
   };
 
@@ -185,8 +189,9 @@ const SignupUser = () => {
         <button
           type="submit"
           className="bg-teal-600 text-white w-full py-2 rounded-lg hover:bg-teal-700 transition duration-300"
+          disabled={loading} // Disable button while loading
         >
-          Signup
+          {loading ? 'Signing Up...' : 'Signup'}
         </button>
       </form>
     </div>

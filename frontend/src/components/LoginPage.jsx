@@ -6,9 +6,12 @@ const LoginPage = () => {
   const [role, setRole] = useState('user');
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false); // New state for loading
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    setLoading(true); // Set loading to true when request starts
+
     try {
       const response = await axios.post('http://localhost:3000/login', {
         password,
@@ -25,7 +28,9 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.error('Error logging in:', error);
-      alert('Login failed: ' + error.response.data);
+      alert('Login failed: ' + (error.response?.data || 'Unknown error'));
+    } finally {
+      setLoading(false); // Set loading to false when request completes
     }
   };
 
@@ -58,9 +63,11 @@ const LoginPage = () => {
         <button
           className="bg-teal-600 text-white w-full py-2 rounded-lg shadow-md hover:bg-teal-700 transition duration-300"
           onClick={handleLogin}
+          disabled={loading} // Disable button while loading
         >
-          Login
+          {loading ? 'Logging In...' : 'Login'}
         </button>
+        {loading && <div className="text-teal-600 mt-4">Loading...</div>} {/* Loading message */}
         <div className="mt-6 flex justify-between">
           <button
             className="text-teal-600 hover:text-teal-800"
