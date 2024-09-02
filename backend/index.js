@@ -219,6 +219,7 @@ app.post('/verify', authenticateJWT, authorize('professional'), upload.single('p
         if (match) {
             res.json({
                 name: match.name,
+                aadharNumber: match.aadharNumber,
                 emergencyContact: match.emergencyContact,
                 bloodGroup: match.bloodGroup,
                 allergies: match.allergies,

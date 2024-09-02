@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Webcam from 'react-webcam';
 
 const SignupUser = () => {
   const [formData, setFormData] = useState({
@@ -14,15 +15,39 @@ const SignupUser = () => {
     otherMedicalConditions: '',
     photo: null,
   });
+  const [useCamera, setUseCamera] = useState(false);
+  const [capturedImage, setCapturedImage] = useState(null);
+  const webcamRef = useRef(null);
   const navigate = useNavigate();
+
+  const handleCapture = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setCapturedImage(imageSrc);
+
+    fetch(imageSrc)
+      .then((res) => res.blob())
+      .then((blob) => {
+        setFormData((prevData) => ({
+          ...prevData,
+          photo: new File([blob], 'captured.png', { type: 'image/png' }),
+        }));
+      });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, photo: e.target.files[0] });
+    setFormData((prevData) => ({
+      ...prevData,
+      photo: e.target.files[0],
+    }));
+    setCapturedImage(null); // Clear captured image if file is uploaded
   };
 
   const handleSubmit = async (e) => {
@@ -108,12 +133,55 @@ const SignupUser = () => {
           className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
           onChange={handleChange}
         />
-        <input
-          type="file"
-          className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
-          onChange={handleFileChange}
-          required
-        />
+
+        <div className="mb-4">
+          <button
+            type="button"
+            className="bg-teal-600 text-white w-full py-2 rounded-lg hover:bg-teal-700 transition duration-300"
+            onClick={() => {
+              setUseCamera((prev) => !prev);
+              setCapturedImage(null);
+              setFormData((prevData) => ({
+                ...prevData,
+                photo: null,
+              }));
+            }}
+          >
+            {useCamera ? 'Switch to Upload' : 'Use Camera'}
+          </button>
+        </div>
+
+        {useCamera ? (
+          <div className="mb-4">
+            {!capturedImage ? (
+              <Webcam
+                audio={false}
+                ref={webcamRef}
+                screenshotFormat="image/png"
+                className="w-full h-auto mb-4"
+              />
+            ) : (
+              <img src={capturedImage} alt="Captured" className="w-full h-auto mb-4" />
+            )}
+            {!capturedImage && (
+              <button
+                type="button"
+                className="bg-teal-600 text-white w-full py-2 rounded-lg hover:bg-teal-700 transition duration-300"
+                onClick={handleCapture}
+              >
+                Capture Photo
+              </button>
+            )}
+          </div>
+        ) : (
+          <input
+            type="file"
+            className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
+            onChange={handleFileChange}
+            required
+          />
+        )}
+
         <button
           type="submit"
           className="bg-teal-600 text-white w-full py-2 rounded-lg hover:bg-teal-700 transition duration-300"
