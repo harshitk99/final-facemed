@@ -21,7 +21,7 @@ const SignupProfessional = () => {
     e.preventDefault();
 
     try {
-      await axios.post('https://facemed-api.onrender.com/register-professional', formData);
+      await axios.post('http://localhost:3000/register-professional', formData);
       alert('Medical Professional registered successfully!');
       navigate('/');
     } catch (error) {

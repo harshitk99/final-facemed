@@ -59,7 +59,7 @@ const SignupUser = () => {
         formDataObj.append(key, formData[key]);
       }
 
-      await axios.post('https://facemed-api.onrender.com/upload', formDataObj);
+      await axios.post('http://localhost:3000/upload', formDataObj);
       alert('User registered successfully!');
       navigate('/');
     } catch (error) {

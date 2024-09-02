@@ -10,7 +10,7 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('https://facemed-api.onrender.com/login', {
+      const response = await axios.post('http://localhost:3000/login', {
         password,
         role,
         [role === 'professional' ? 'doctorId' : 'aadharNumber']: identifier,
