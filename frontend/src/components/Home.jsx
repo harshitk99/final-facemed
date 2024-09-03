@@ -51,21 +51,23 @@ const Home = () => {
         textAlign: 'center'
       }}>
         <motion.h1
-          style={{
-            fontSize: window.innerWidth < 768 ? '40px' : '92px',
-            fontWeight: '900',
-            background: 'linear-gradient(135deg, #004d40, #00695c)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            marginBottom: '24px',
-            zIndex: 1
-          }}
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        >
-          FaceMed
-        </motion.h1>
+  style={{
+    fontSize: window.innerWidth < 768 ? '40px' : '92px',
+    fontWeight: '900',
+    background: 'linear-gradient(135deg, #004d40, #009688, #004d40)',
+    backgroundClip: 'text',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    marginBottom: '24px',
+    zIndex: 1
+  }}
+  initial={{ opacity: 0, y: -50 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1, ease: "easeOut" }}
+>
+  FaceMed
+</motion.h1>
+
         <motion.h1
           style={{
             fontSize: window.innerWidth < 768 ? '24px' : '36px',
