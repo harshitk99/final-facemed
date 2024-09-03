@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Webcam from 'react-webcam';
-import { motion } from 'framer-motion'; // Import Framer Motion
+import { motion } from 'framer-motion';
 
 const SignupUser = () => {
   const [formData, setFormData] = useState({
@@ -95,7 +95,7 @@ const SignupUser = () => {
         >
           Signup as User
         </motion.h2>
-        {/* Form Inputs */}
+
         <motion.input
           type="text"
           name="name"
@@ -189,12 +189,7 @@ const SignupUser = () => {
         </motion.div>
 
         {useCamera ? (
-          <motion.div
-            className="mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
-          >
+          <div className="mb-4">
             {!capturedImage ? (
               <Webcam
                 audio={false}
@@ -206,22 +201,20 @@ const SignupUser = () => {
               <img src={capturedImage} alt="Captured" className="w-full h-auto mb-4" />
             )}
             {!capturedImage && (
-              <motion.button
+              <button
                 type="button"
                 className="bg-teal-600 text-white w-full py-2 rounded-lg hover:bg-teal-700 transition duration-300"
                 onClick={handleCapture}
-                whileTap={{ scale: 0.95 }}
               >
                 Capture Photo
-              </motion.button>
+              </button>
             )}
-          </motion.div>
+          </div>
         ) : (
           <motion.input
             type="file"
             className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700"
             onChange={handleFileChange}
-            required
             whileFocus={{ scale: 1.05 }}
           />
         )}
@@ -234,10 +227,10 @@ const SignupUser = () => {
           initial={{ scale: 1 }}
           animate={{ scale: 1 }}
           transition={{
-            ease: "easeInOut",
+            ease: 'easeInOut',
             duration: 0.2,
             repeat: Infinity,
-            repeatType: "reverse",
+            repeatType: 'reverse',
             repeatDelay: 1,
           }}
         >
@@ -248,7 +241,7 @@ const SignupUser = () => {
               transition={{
                 repeat: Infinity,
                 duration: 1,
-                ease: "linear",
+                ease: 'linear',
               }}
             >
               Signing Up...

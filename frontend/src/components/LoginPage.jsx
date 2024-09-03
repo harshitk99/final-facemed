@@ -7,9 +7,12 @@ const LoginPage = () => {
   const [role, setRole] = useState('user');
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    setLoading(true);
+
     try {
       const response = await axios.post('http://localhost:3000/login', {
         password,
@@ -26,7 +29,9 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.error('Error logging in:', error);
-      alert('Login failed: ' + error.response.data);
+      alert('Login failed: ' + (error.response?.data || 'Unknown error'));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,16 +48,14 @@ const LoginPage = () => {
           filter: 'blur(2px)',
         }}
       />
-      
+
       <motion.div
         className="bg-white p-8 rounded-lg shadow-lg w-80 max-w-sm"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
-        <h2 className="text-2xl mb-6 text-center text-teal-800 font-bold">
-          Login
-        </h2>
+        <h2 className="text-2xl mb-6 text-center text-teal-800 font-bold">Login</h2>
 
         <motion.select 
           className="mb-4 w-full p-3 border border-teal-300 rounded-lg text-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-400 transition-transform duration-300 ease-in-out"
@@ -91,18 +94,14 @@ const LoginPage = () => {
         <motion.button
           className="relative bg-teal-600 text-white w-full py-2 rounded-lg shadow-md overflow-hidden"
           onClick={handleLogin}
+          disabled={loading}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          Login
-          <motion.span
-            className="absolute inset-0 bg-teal-500 opacity-30"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-          />
+          {loading ? 'Logging In...' : 'Login'}
         </motion.button>
+        
+        {loading && <div className="text-teal-600 mt-4">Loading...</div>}
 
         <div className="mt-6 flex justify-between">
           <motion.button
